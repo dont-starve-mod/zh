@@ -1,0 +1,1745 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+
+<style type="text/css">
+  .md-content figure{
+    padding-top: 30px;
+  }
+  .md-content figcaption{
+    margin-bottom: 0px!important;
+  }
+  h3 {
+    /*color: var(--md-accent-fg-color);*/
+    color: var(--md-typeset-a-color);
+  }
+  .common-box {
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: double;
+    padding: 5px 20px !important;
+    /*border-color: red;*/
+    /*background-color: rgb(255,230,230);*/
+  }
+
+  .common-box a{
+    font-weight: 600;
+  }
+
+  @media screen and (max-width:750px){ 
+    video{
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>
+<script type="text/javascript">
+  // START
+  // 批量设置动图宽度
+  function setGifWidth() {
+    var content = document.querySelector('.md-content');
+    if (content != null){
+      var imgs = content.getElementsByTagName('img');
+      for (var i = 0; i < imgs.length; ++i){
+        if (imgs[i].getAttribute('src').endsWith(".gif")){
+          if (!imgs[i].hasAttribute('width')){
+            imgs[i].setAttribute('width', '400');
+          }
+          imgs[i].setAttribute('loading', 'lazy');
+        }
+      }
+    }
+  }
+  // 批量修改小图标大小
+  function setTitleIconWidth() {
+    var imgs = document.querySelectorAll('h3>img');
+    for (var i = 0; i < imgs.length; ++i){
+      if (!imgs[i].hasAttribute('width')){
+        imgs[i].setAttribute('width', '35');
+        imgs[i].setAttribute('style', 'margin-right:8px;vertical-align:middle;');
+      }
+    }
+  }
+  // 添加视频
+  function setVideos() {
+    var videos = document.querySelectorAll('video');
+    for (var i = 0; i < videos.length; ++i){
+      var v = videos[i];
+      if (!v.hasAttribute('autoplay')){
+        v.setAttribute('autoplay', 'autoplay');
+      }
+      if (!v.hasAttribute('playsinline')){
+        v.setAttribute('playsinline', 'playsinline');
+      }
+      if (!v.hasAttribute('webkit-playsinline')){
+        v.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      }
+      if (!v.hasAttribute('muted')){
+        v.setAttribute('muted', 'muted');
+      }
+      if (!v.hasAttribute('loop')){
+        v.setAttribute('loop', 'loop');
+      }
+      if (!v.hasAttribute('width')){
+        v.setAttribute('width', '400');
+      }
+      // var name = v.getAttribute('lw-name');
+      // var source = document.createElement('source');
+      // source.setAttribute('src', 'http://mod.3vcm.vip/videos/'+name);
+      // source.setAttribute('type', 'video/mp4');
+      // v.appendChild(source);
+
+      var txt =document.createTextNode("'您的浏览器不支持 video 标签，建议使用 Chrome、Safari、Edge 等现代浏览器。'");
+      v.appendChild(txt);
+    }
+  }
+  // 添加新js脚本调整颜色
+  function getPalette() {
+    var path = location.pathname;
+    var theme = {
+      "homura": {
+        "default": "deep-purple",
+      },
+      "momo": {
+        "default": "pink",
+      },
+      "ohtoai": {
+        "default": "amber",
+      },
+      "bugtracker": {
+        "default": "black",
+      },
+      "luckwater": {
+        "default": "light-blue"
+      },
+      "home": {
+        "default": "green",
+      },
+      "default": {
+        "default": "black"
+      },
+    }
+    for (var key in theme){
+      if (path.indexOf(key) != -1){
+        return theme[key];
+      }
+    }
+    return theme.default;
+  }
+  function dictGetValue(obj, key){
+    if (typeof obj == "string"){
+      return obj;
+    }
+    else if (obj[key]){
+      return obj[key];
+    }
+    else{
+      return obj["default"];
+    }
+  }
+
+  function changePalette() {
+    var color = getPalette()
+    console.log("Color:", color);
+    // html body
+    body = document.body;
+    // 深浅色切换器
+    var form = document.querySelector('header>nav>.md-header__option');
+    if (form != null){
+      var i = 0;
+      var label = form.getElementsByClassName('md-icon');
+      var option = form.getElementsByClassName('md-option');
+
+      for (i = 0; i < option.length; ++i){
+        var scheme = option[i].getAttribute('data-md-color-scheme');
+        var data = dictGetValue(color, scheme);
+        var primary = dictGetValue(data, "primary");
+        var accent  = dictGetValue(data, "accent");
+        option[i].setAttribute('data-md-color-primary', primary);
+        option[i].setAttribute('data-md-color-accent', accent);
+        if (!label[i].hasAttribute('hidden')){
+          // 顺便设置一下主题颜色
+          body.setAttribute('data-md-color-primary', primary);
+          body.setAttribute('data-md-color-accent', accent);
+        }
+      }
+    } 
+    else{
+    }
+  }
+
+  function setHighlight(){
+    console.log("setHighlight")
+    var reg = new RegExp("h=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg)[1];
+    if (r != null) {
+      r = decodeURIComponent(r);
+      var content = document.getElementById("md-content").innerHTML;
+      console.log(r)
+      var reg = new RegExp("(" + r + ")", "g");  
+      var str = content;  
+      var newstr = str.replace(reg, "<span style='background-color:#EBEC4F'>$1</span>");
+      document.getElementById("md-content").innerHTML = newstr;
+    }
+  }
+
+  function modPageInit() {
+    changePalette();
+    setGifWidth();
+    setTitleIconWidth();
+    setVideos();
+    setHighlight();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', modPageInit);
+  } else {
+    modPageInit();
+  }
+// END
+</script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="老王">
+      
+      
+        <link rel="canonical" href="https://dont-starve-mod.gitee.io/ohto-ai-doc/zh/dsa_index/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>简介 - 老王的饥荒模组合集</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-header__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            老王的饥荒模组合集
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              简介
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../home/" class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        独行长路
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../momo_index/" class="md-tabs__link">
+        千代田桃
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../homura_index/" class="md-tabs__link">
+        晓美焰
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../bugtracker_index/" class="md-tabs__link">
+        错误追踪
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ohtoai_character/" class="md-tabs__link">
+        大户爱
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../madoka_index/" class="md-tabs__link">
+        魔法少女小圆
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../luckwater_index/" class="md-tabs__link">
+        幸运之水
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      关于作者
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-nav__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    老王的饥荒模组合集
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../home/" class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          独行长路
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="独行长路" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          独行长路
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          简介
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        简介
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    运行原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    启动条件
+  </a>
+  
+    <nav class="md-nav" aria-label="启动条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mod" class="md-nav__link">
+    1. 开启本mod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 单人世界
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 世界带有洞穴
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    注意事项
+  </a>
+  
+    <nav class="md-nav" aria-label="注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 存档格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 回滚
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 自动保存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 重新生成世界
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 无法在专服使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time" class="md-nav__link">
+    6. 时间同步
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" class="md-nav__link">
+    常见问题
+  </a>
+  
+    <nav class="md-nav" aria-label="常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    出现一些bug
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    阿比盖尔花只显示一阶段贴图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    游戏掉帧卡顿
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crash-in-cave" class="md-nav__link">
+    进出洞穴闪退
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    某个物品无法带进/带出洞穴
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    多人版本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    开发进度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    友情链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_pmode/" class="md-nav__link">
+        偏执模式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          千代田桃
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="千代田桃" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          千代田桃
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          晓美焰
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="晓美焰" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          晓美焰
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_structure/" class="md-nav__link">
+        建筑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_explosive/" class="md-nav__link">
+        爆破
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_gun/" class="md-nav__link">
+        枪械
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_buff/" class="md-nav__link">
+        配件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_future/" class="md-nav__link">
+        更新计划
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          错误追踪
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="错误追踪" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          错误追踪
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_content/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_qa/" class="md-nav__link">
+        问题和回答
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_collectdata/" class="md-nav__link">
+        数据收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_update/" class="md-nav__link">
+        更新日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          大户爱
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="大户爱" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          大户爱
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohtoai_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          魔法少女小圆
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="魔法少女小圆" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          魔法少女小圆
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madoka_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          幸运之水
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="幸运之水" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          幸运之水
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../luckwater_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        关于作者
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    运行原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    启动条件
+  </a>
+  
+    <nav class="md-nav" aria-label="启动条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mod" class="md-nav__link">
+    1. 开启本mod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 单人世界
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 世界带有洞穴
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    注意事项
+  </a>
+  
+    <nav class="md-nav" aria-label="注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 存档格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 回滚
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 自动保存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 重新生成世界
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 无法在专服使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time" class="md-nav__link">
+    6. 时间同步
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" class="md-nav__link">
+    常见问题
+  </a>
+  
+    <nav class="md-nav" aria-label="常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    出现一些bug
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    阿比盖尔花只显示一阶段贴图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    游戏掉帧卡顿
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crash-in-cave" class="md-nav__link">
+    进出洞穴闪退
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    某个物品无法带进/带出洞穴
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    多人版本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    开发进度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    友情链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content" id="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="_1">延迟消除工具<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551">
+    <img src="https://pic.imgdb.cn/item/618f36042ab3f51d913a6686.png" width="100px">
+</a></p>
+<h3 id="_2">简介<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>【独行长路/Don't Starve Alone】 是一个<strong>消除延迟</strong>的辅助mod，主要面向单人玩家，特别是从饥荒单机版转到饥荒联机版后，非常讨厌联机版的延迟感的玩家。</li>
+<li>正如其名字 Dont't Starve Alone 中 <strong>Alone</strong> 一词的含义，本mod只适合单人模式，后续版本也不会支持多人游戏。</li>
+<li>本mod不修改原版的数值和机制，除了消除延迟，其他事情尽量都不碰。</li>
+<li>主要的bug来源是地面和洞穴切换过程中的<a href="#time">时间同步</a>。如发现bug，可在创意工坊反馈，让我们一起把这个mod变得更好。</li>
+</ul>
+<h3 id="_3">运行原理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>如果你感兴趣，可以看看这个mod的运行原理：</p>
+<details class="点击展开">
+<summary>点击展开</summary>
+<p>许多玩家发现，即便是在自己电脑上开服玩饥荒，只要存档带有洞穴，就能感受到延迟。这是怎么会事呢？</p>
+<p>在多人游戏中，客户端和服务器之间需要进行<strong>网络通讯</strong>，饥荒联机版的网络通讯频率是每秒15次，这意味着玩家的操作（比如点击鼠标）发送到服务器（威尔逊向鼠标处跑动）会有一个延迟，最高为66毫秒。</p>
+<p>这种延迟<strong>与网速无关</strong>，即使客户端和服务器在同一台电脑上（比如本地开洞穴房，或者本地开专服然后自己加入），延迟依旧存在。</p>
+<p>想要完全消除延迟，就得让玩家处于服务端。在一些多人游戏中，开房间的玩家会处于服务端，不受延迟影响，加入房间的其他玩家处于客户端，会感受到和服务器的延迟。</p>
+<p>但饥荒这个游戏比较特殊，它有“地面”和“洞穴”两个世界，假如房主目前处于地面服务器，那么当房主进入洞穴时，地面世界会关闭，导致其他在地面的玩家无法正常游戏。为了避免这一点，在饥荒中房主也以客户端的形式连接到服务器，在进出洞穴时，玩家客户端只需要切换连接的世界，而不会关闭世界。因此，即使你是房主，也会感到延迟。</p>
+<p>这个机制其实可以优化。在“单人联机”，即只有一名玩家的特殊情况下，不需要考虑队友，只运行这名玩家所处的世界就行了。玩家在地面，运行地面世界；玩家在洞穴，运行洞穴世界。保证玩家一直是主机，延迟就不存在，还能减轻电脑的负担。</p>
+<p>于是有了这个mod。</p>
+</details>
+<hr />
+<h3 id="_4">启动条件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="1-mod">1. 开启本mod<a class="headerlink" href="#1-mod" title="Permanent link">&para;</a></h4>
+<p>这是一个服务器mod，在启动世界前，你需要在服务器mod列表中勾选它。</p>
+<p><img src=https://pic.imgdb.cn/item/6190bd3c2ab3f51d91bc09a9.png width=400></p>
+<h4 id="2">2. 单人世界<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>世界人数必须设置为1，否则无法启动。</p>
+<p><img src=https://pic.imgdb.cn/item/6190bd3c2ab3f51d91bc09af.png width=400></p>
+<h4 id="3">3. 世界带有洞穴<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>不含洞穴的世界本身就不存在延迟问题。<em>当然，你可以把mod开启，但它不会有任何实际效果。</em></p>
+<h3 id="_5">注意事项<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h4 id="1">1. 存档格式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>开启【独行长路】的世界，存档格式和饥荒联机官方格式有所不同，所以会存在一些兼容性问题。</p>
+<ul>
+<li>
+<p>创建新世界前，在mod列表中添加本mod，这个世界的存档会采用<strong>特殊的储存格式</strong>，以支持延迟消除。</p>
+</li>
+<li>
+<p>你也可以给一个活了100天的旧存档添加本mod。在读档时，官方存档格式会被mod自动转换为特殊格式。</p>
+</li>
+<li>
+<p>一个存档如果已经开启了本mod，就不要关闭。因为官方代码并不能识别mod存档文件的洞穴部分，一旦关闭mod，你会丢失在洞穴的所有游戏进度。</p>
+</li>
+<li>
+<p>存档恢复功能开发中...</p>
+</li>
+</ul>
+<div class="admonition error">
+<p class="admonition-title">注意</p>
+<p>本mod适合<strong>从开局到结档</strong>都是一个人自己玩的存档。</p>
+<p>如果你的存档有时候一个人玩，有时候和朋友一起玩，那就不要使用。</p>
+</div>
+<h4 id="2_1">2. 回滚<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
+<p>本mod已支持回滚，可在游戏中或读档时恢复到更早的存档，操作方法和原版一致。</p>
+<p>如果游戏内回滚行为异常，可以先退出世界，然后在读档界面回滚。</p>
+<div class="admonition error">
+<p class="admonition-title">注意</p>
+<p>云同步存档的游戏内回滚功能可能尚不稳定，如果你的存档是云同步的，建议不要在游戏内直接回滚，而是在读档界面进行回滚操作。
+<br>如果游玩时需要频繁回滚，推荐在<strong>本地存档</strong>内使用【独行长路】。</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">注意</p>
+<p>一个旧存档添加了【独行长路】后，将无法回滚至<strong>开启mod前</strong>的游戏进度。</p>
+</div>
+<h4 id="3_1">3. 自动保存<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
+<p>和单机版类似，每次下洞穴或者回到地面都会额外触发一次自动保存。</p>
+<p>由于你始终是主机，所以<strong>每次保存时都会出现轻微的卡顿</strong>，这是正常现象。</p>
+<h4 id="4">4. 重新生成世界<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<p>该功能已完成，你可以在游戏内重新生成一个新世界。</p>
+<p>由于一些底层限制，【独行长路】无法同时生成两个世界。在重置世界过程中，它会先生成洞穴，等洞穴生成完毕后再自动生成地面，最后弹出选人界面，整个过程不需要任何操作，耐心等待即可。</p>
+<h4 id="5">5. 无法在专服使用<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>不要把本mod加到专服，会强制崩溃的。</p>
+<h4 id="time">6. 时间同步<a class="headerlink" href="#time" title="Permanent link">&para;</a></h4>
+<p>正常情况下，洞穴和地面的时间会自动同步，植物生长、boss刷新、四季、月相等计时器也会照常运行。</p>
+<p>部分依赖于世界运行的机制将失效，例如：当你位于洞穴时，地面的蚁狮不会在你脚底挖坑；当你位于地面时，洞穴内的海星不会每隔一段时间造成范围伤害。（详见<a href="../dsa_pmode/">偏执模式</a>）</p>
+<p>如果遇到时间不同步的情况，请向我反馈，并附上一份存档文件。</p>
+<h3 id="qa">常见问题<a class="headerlink" href="#qa" title="Permanent link">&para;</a></h3>
+<h4 id="bug">出现一些bug<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h4>
+<p>如果遇到bug，请先确认是否由【独行长路】造成。</p>
+<ol>
+<li>创建新存档，只添加【独行长路】这一个mod，观察bug能否被重现。</li>
+<li>也可创建新存档，不开洞穴，不添加【独行长路】，观察bug能否被重现。</li>
+<li>如果bug确实和【独行长路】相关，再向作者反馈。</li>
+</ol>
+<h4 id="_6">阿比盖尔花只显示一阶段贴图<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p><span style="color:red">这是一个官方bug</span>，我已在论坛反馈（见下方链接），但是官方不修，所以我也没办法。</p>
+<p><a href="https://forums.kleientertainment.com/klei-bug-tracker/dont-starve-together/abigail-flower-inventory-image-doesnt-change-on-load-in-host-r33515/">https://forums.kleientertainment.com/klei-bug-tracker/dont-starve-together/abigail-flower-inventory-image-doesnt-change-on-load-in-host-r33515/</a></p>
+<hr />
+<p>下面是一些有用的控制台命令，有助于排查模组bug：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>c_freecrafting() </code></td>
+<td align="left">开启物品全制造</td>
+</tr>
+<tr>
+<td align="left"><code>c_godmode()</code></td>
+<td align="left">开启无敌，死亡后输入该指令可以复活</td>
+</tr>
+<tr>
+<td align="left"><code>c_save()</td>
+<td align="left">立刻保存</td>
+</tr>
+<tr>
+<td align="left"><code>c_gonext"cave_entrance"</code></td>
+<td align="left">传送到洞穴入口</td>
+</tr>
+<tr>
+<td align="left"><code>LongUpdate(480)</code></td>
+<td align="left">跳过一定的时间，数字代表秒数，如480秒代表饥荒的一天</td>
+</tr>
+<tr>
+<td align="left"><code>LongUpdate(480, true)</code></td>
+<td align="left">跳过一定的时间，但不影响玩家三围</td>
+</tr>
+<tr>
+<td align="left"><code>TheWorld.minimap.MiniMap:EnableFogOfWar(false)</code></td>
+<td align="left">小地图全显示（该指令仅在主机生效）</td>
+</tr>
+<tr>
+<td align="left"><code>SetDefaultTimeScale(2)</td>
+<td align="left">将游戏速度设置为2倍速</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="_7">游戏掉帧卡顿<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>按如下流程处理：</p>
+<ol>
+<li>创建新存档，只添加【独行长路】这一个mod，进去玩几分钟。</li>
+<li>如果仍然有掉帧，说明你的电脑带不动，建议订阅一些能清理地面物品的防卡mod（如掉落物自动堆叠）。假如你财力雄厚，也可以考虑换一台12900k，5950x或者m1。</li>
+<li>如果不掉帧了，那说明是一些mod的原因。一些大型mod（如【Tropical Experience，三合一】）和一些优化较差的mod（如【tips，提示猎狗和BOSS的攻击时间】）会对游戏性能造成很大的负担，关闭这些mod可能会改善掉帧的问题。</li>
+</ol>
+<hr />
+<p><em><span style="color:grey">关于tips为什么优化差，因为这个mod会频繁遍历全局实例哈希表Ents（大小约为30000），这对性能弱的电脑就是个灾难...</span></em></p>
+<hr />
+<h4 id="crash-in-cave">进出洞穴闪退<a class="headerlink" href="#crash-in-cave" title="Permanent link">&para;</a></h4>
+<p>我无法复现这个bug，有部分玩家指出是144hz刷新率导致的问题，但是我没有电竞显示屏，没法求证。</p>
+<p>如果你遇到了进出洞穴游戏闪退的情况，可以试试把显示屏刷新率从144hz调成60hz，看看问题能否解决。如果确实能成功解决，可在创意工坊评论区留言。</p>
+<p>（这大概是klei在游戏引擎里留下的诡异bug）</p>
+<h4 id="_8">某个物品无法带进/带出洞穴<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>请先查一查这个物品本身究竟能否带进洞穴，比如切斯特眼骨是没法带进洞穴的。</p>
+<h4 id="_9">多人版本<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>正如名字所示，【独行长路/Don't Starve Alone】只适合单人世界，后续的版本也不会支持多人游戏。</p>
+<p>如果你需要改善多人联机模式下的延迟问题，我觉得你应该去找klei的程序员，这是他们的工作。</p>
+<hr />
+<h3 id="_10">开发进度<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 跨世界传送<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 上下洞穴</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 控制台<code>c_migrateto</code>命令</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 旺达的传送锚点 </li>
+</ul>
+</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 绚丽大门换人</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 存档转换</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 官方存档转换为mod存档。</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> mod存档恢复为官方存档。</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 回滚</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 重新生成世界</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> 支持修改世界设置</p>
+</li>
+</ul>
+<h3 id="_11">友情链接<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../home/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M172.5 131.1c55.6-55.59 148-55.59 203.6 0 50 50 57.4 129.7 16.3 187.2l-1.1 1.6c-10.3 14.3-30.3 17.7-44.6 7.4-14.4-10.3-17.8-30.3-7.5-44.6l1.1-1.6c22.9-32.1 19.3-76-8.6-103.9-31.4-31.4-82.5-31.4-114 0L105.5 289.5c-31.51 30.6-31.51 82.5 0 114 27.8 27.9 71.8 31.5 103.8 8.6l1.6-2c14.4-9.4 34.4-6.1 44.6 8.3 10.3 14.4 7 34.4-7.4 44.7l-1.6 1.1c-58.4 41.1-136.3 34.5-186.29-15.4-56.469-56.5-56.469-148.1 0-204.5L172.5 131.1zm295 248.9c-56.5 56.5-148 56.5-204.5 0-50-50-56.5-128.8-15.4-186.3l1.1-1.6c9.4-14.3 29.4-17.7 44.6-7.4 14.4 9.4 17.8 29.4 7.5 44.6l-1.1 1.6c-22.9 31.2-19.3 76 8.6 103.9 31.4 31.4 82.5 31.4 114 0l112.2-112.3c31.5-31.5 31.5-83.4 0-114-27.8-27.87-71.8-31.51-103.8-8.6l-1.6 1.1c-14.4 10.3-34.4 6.1-44.6-7.42-10.3-14.38-7-34.37 7.4-44.64l1.6-1.12C451 6.731 529.8 13.25 579.8 63.24c56.5 56.46 56.5 148.06 0 204.46L467.5 380z"/></svg></span> 作者的其他mod</a></li>
+<li><a href="../author/#connect"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M172.5 131.1c55.6-55.59 148-55.59 203.6 0 50 50 57.4 129.7 16.3 187.2l-1.1 1.6c-10.3 14.3-30.3 17.7-44.6 7.4-14.4-10.3-17.8-30.3-7.5-44.6l1.1-1.6c22.9-32.1 19.3-76-8.6-103.9-31.4-31.4-82.5-31.4-114 0L105.5 289.5c-31.51 30.6-31.51 82.5 0 114 27.8 27.9 71.8 31.5 103.8 8.6l1.6-2c14.4-9.4 34.4-6.1 44.6 8.3 10.3 14.4 7 34.4-7.4 44.7l-1.6 1.1c-58.4 41.1-136.3 34.5-186.29-15.4-56.469-56.5-56.469-148.1 0-204.5L172.5 131.1zm295 248.9c-56.5 56.5-148 56.5-204.5 0-50-50-56.5-128.8-15.4-186.3l1.1-1.6c9.4-14.3 29.4-17.7 44.6-7.4 14.4 9.4 17.8 29.4 7.5 44.6l-1.1 1.6c-22.9 31.2-19.3 76 8.6 103.9 31.4 31.4 82.5 31.4 114 0l112.2-112.3c31.5-31.5 31.5-83.4 0-114-27.8-27.87-71.8-31.51-103.8-8.6l-1.6 1.1c-14.4 10.3-34.4 6.1-44.6-7.42-10.3-14.38-7-34.37 7.4-44.64l1.6-1.12C451 6.731 529.8 13.25 579.8 63.24c56.5 56.46 56.5 148.06 0 204.46L467.5 380z"/></svg></span> 联系方式</a></li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../home/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 主页" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              主页
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../dsa_pmode/" class="md-footer__link md-footer__link--next" aria-label="下一页: 偏执模式" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              偏执模式
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      
+    
+  </body>
+</html>

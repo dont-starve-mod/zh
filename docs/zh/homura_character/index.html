@@ -1,0 +1,1520 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+
+<style type="text/css">
+  .md-content figure{
+    padding-top: 30px;
+  }
+  .md-content figcaption{
+    margin-bottom: 0px!important;
+  }
+  h3 {
+    /*color: var(--md-accent-fg-color);*/
+    color: var(--md-typeset-a-color);
+  }
+  .common-box {
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: double;
+    padding: 5px 20px !important;
+    /*border-color: red;*/
+    /*background-color: rgb(255,230,230);*/
+  }
+
+  .common-box a{
+    font-weight: 600;
+  }
+
+  @media screen and (max-width:750px){ 
+    video{
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>
+<script type="text/javascript">
+  // START
+  // 批量设置动图宽度
+  function setGifWidth() {
+    var content = document.querySelector('.md-content');
+    if (content != null){
+      var imgs = content.getElementsByTagName('img');
+      for (var i = 0; i < imgs.length; ++i){
+        if (imgs[i].getAttribute('src').endsWith(".gif")){
+          if (!imgs[i].hasAttribute('width')){
+            imgs[i].setAttribute('width', '400');
+          }
+          imgs[i].setAttribute('loading', 'lazy');
+        }
+      }
+    }
+  }
+  // 批量修改小图标大小
+  function setTitleIconWidth() {
+    var imgs = document.querySelectorAll('h3>img');
+    for (var i = 0; i < imgs.length; ++i){
+      if (!imgs[i].hasAttribute('width')){
+        imgs[i].setAttribute('width', '35');
+        imgs[i].setAttribute('style', 'margin-right:8px;vertical-align:middle;');
+      }
+    }
+  }
+  // 添加视频
+  function setVideos() {
+    var videos = document.querySelectorAll('video');
+    for (var i = 0; i < videos.length; ++i){
+      var v = videos[i];
+      if (!v.hasAttribute('autoplay')){
+        v.setAttribute('autoplay', 'autoplay');
+      }
+      if (!v.hasAttribute('playsinline')){
+        v.setAttribute('playsinline', 'playsinline');
+      }
+      if (!v.hasAttribute('webkit-playsinline')){
+        v.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      }
+      if (!v.hasAttribute('muted')){
+        v.setAttribute('muted', 'muted');
+      }
+      if (!v.hasAttribute('loop')){
+        v.setAttribute('loop', 'loop');
+      }
+      if (!v.hasAttribute('width')){
+        v.setAttribute('width', '400');
+      }
+      // var name = v.getAttribute('lw-name');
+      // var source = document.createElement('source');
+      // source.setAttribute('src', 'http://mod.3vcm.vip/videos/'+name);
+      // source.setAttribute('type', 'video/mp4');
+      // v.appendChild(source);
+
+      var txt =document.createTextNode("'您的浏览器不支持 video 标签，建议使用 Chrome、Safari、Edge 等现代浏览器。'");
+      v.appendChild(txt);
+    }
+  }
+  // 添加新js脚本调整颜色
+  function getPalette() {
+    var path = location.pathname;
+    var theme = {
+      "homura": {
+        "default": "deep-purple",
+      },
+      "momo": {
+        "default": "pink",
+      },
+      "ohtoai": {
+        "default": "amber",
+      },
+      "bugtracker": {
+        "default": "black",
+      },
+      "luckwater": {
+        "default": "light-blue"
+      },
+      "home": {
+        "default": "green",
+      },
+      "default": {
+        "default": "black"
+      },
+    }
+    for (var key in theme){
+      if (path.indexOf(key) != -1){
+        return theme[key];
+      }
+    }
+    return theme.default;
+  }
+  function dictGetValue(obj, key){
+    if (typeof obj == "string"){
+      return obj;
+    }
+    else if (obj[key]){
+      return obj[key];
+    }
+    else{
+      return obj["default"];
+    }
+  }
+
+  function changePalette() {
+    var color = getPalette()
+    console.log("Color:", color);
+    // html body
+    body = document.body;
+    // 深浅色切换器
+    var form = document.querySelector('header>nav>.md-header__option');
+    if (form != null){
+      var i = 0;
+      var label = form.getElementsByClassName('md-icon');
+      var option = form.getElementsByClassName('md-option');
+
+      for (i = 0; i < option.length; ++i){
+        var scheme = option[i].getAttribute('data-md-color-scheme');
+        var data = dictGetValue(color, scheme);
+        var primary = dictGetValue(data, "primary");
+        var accent  = dictGetValue(data, "accent");
+        option[i].setAttribute('data-md-color-primary', primary);
+        option[i].setAttribute('data-md-color-accent', accent);
+        if (!label[i].hasAttribute('hidden')){
+          // 顺便设置一下主题颜色
+          body.setAttribute('data-md-color-primary', primary);
+          body.setAttribute('data-md-color-accent', accent);
+        }
+      }
+    } 
+    else{
+    }
+  }
+
+  function setHighlight(){
+    console.log("setHighlight")
+    var reg = new RegExp("h=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg)[1];
+    if (r != null) {
+      r = decodeURIComponent(r);
+      var content = document.getElementById("md-content").innerHTML;
+      console.log(r)
+      var reg = new RegExp("(" + r + ")", "g");  
+      var str = content;  
+      var newstr = str.replace(reg, "<span style='background-color:#EBEC4F'>$1</span>");
+      document.getElementById("md-content").innerHTML = newstr;
+    }
+  }
+
+  function modPageInit() {
+    changePalette();
+    setGifWidth();
+    setTitleIconWidth();
+    setVideos();
+    setHighlight();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', modPageInit);
+  } else {
+    modPageInit();
+  }
+// END
+</script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="老王">
+      
+      
+        <link rel="canonical" href="https://dont-starve-mod.gitee.io/ohto-ai-doc/zh/homura_character/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>人物 - 老王的饥荒模组合集</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-header__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            老王的饥荒模组合集
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              人物
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../home/" class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../dsa_index/" class="md-tabs__link">
+        独行长路
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../momo_index/" class="md-tabs__link">
+        千代田桃
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../homura_index/" class="md-tabs__link md-tabs__link--active">
+        晓美焰
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../bugtracker_index/" class="md-tabs__link">
+        错误追踪
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ohtoai_character/" class="md-tabs__link">
+        大户爱
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../madoka_index/" class="md-tabs__link">
+        魔法少女小圆
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../luckwater_index/" class="md-tabs__link">
+        幸运之水
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      关于作者
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-nav__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    老王的饥荒模组合集
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../home/" class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          独行长路
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="独行长路" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          独行长路
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_pmode/" class="md-nav__link">
+        偏执模式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          千代田桃
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="千代田桃" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          千代田桃
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          晓美焰
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="晓美焰" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          晓美焰
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          人物
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        人物
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基础属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    攻击倍数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time" class="md-nav__link">
+    时间停止
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    精致的怀表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bow" class="md-nav__link">
+    魔法弓
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    实现
+  </a>
+  
+    <nav class="md-nav" aria-label="实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    如何暂停
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    scheduler的暂停
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    阻止组件更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    范围搜索
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_structure/" class="md-nav__link">
+        建筑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_explosive/" class="md-nav__link">
+        爆破
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_gun/" class="md-nav__link">
+        枪械
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_buff/" class="md-nav__link">
+        配件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_future/" class="md-nav__link">
+        更新计划
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          错误追踪
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="错误追踪" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          错误追踪
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_content/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_qa/" class="md-nav__link">
+        问题和回答
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_collectdata/" class="md-nav__link">
+        数据收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_update/" class="md-nav__link">
+        更新日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          大户爱
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="大户爱" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          大户爱
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohtoai_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          魔法少女小圆
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="魔法少女小圆" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          魔法少女小圆
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madoka_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          幸运之水
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="幸运之水" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          幸运之水
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../luckwater_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        关于作者
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基础属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    攻击倍数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time" class="md-nav__link">
+    时间停止
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    精致的怀表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bow" class="md-nav__link">
+    魔法弓
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    实现
+  </a>
+  
+    <nav class="md-nav" aria-label="实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    如何暂停
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    scheduler的暂停
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    阻止组件更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    范围搜索
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content" id="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="_1">人物<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<hr />
+<p>晓美焰是动画《<a href="https://www.bilibili.com/bangumi/play/ep63470">魔法少女小圆</a>》的主要角色之一，掌握着强大的<a href="#time">时间魔法</a>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">默认皮肤</label><label for="__tabbed_1_2">起始的物语</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img 
+    src="https://img.imgdb.cn/item/60819577d1a9ae528f501cb8.jpg"
+    width="300px"
+/></p>
+</div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="_2">基础属性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>饥饿 150 / <strong>生命 75</strong> / 理智 200 </p>
+<p>晓美焰有超乎常人的冷静，自带2.5/分钟的理智回复。</p>
+<h3 id="_3">攻击倍数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>近战x0.75 / 远程x1</p>
+<h3 id="time">时间停止<a class="headerlink" href="#time" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>如果mod设置中「<a href="../homura_index/?h=重塑后的世界#settings">重塑后的世界</a>」选项开启，晓美焰将<strong>无法</strong>发动时间停止。</p>
+</div>
+<p>时间停止是晓美焰的标志性技能。在静止的时间里，怪物不能移动和攻击，花草树木不会生长，查理不会伤害黑暗中的玩家，飞行物、雨滴和雪花也会暂时悬浮在半空中。</p>
+<p>技能持续8秒，随后进入30秒的冷却时间。</p>
+<p>时间停止的作用半径是10个地皮，<strong>如果其他玩家进入该范围，也会被暂停</strong>。携带“精致的怀表”可以免疫暂停。</p>
+<p><img alt="" src="https://pic.imgdb.cn/item/60bf8b13844ef46bb2a76688.gif" /></p>
+<h3 id="_4">精致的怀表<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>精致的怀表是一个可以使你免疫时停的小道具，位于魔法栏位，所有玩家均可制作，配方为金块和齿轮，不需要任何科技。</p>
+<p>携带这块怀表，就可以在晓美焰的时停范围内自由行动。</p>
+<h3 id="bow">魔法弓<a class="headerlink" href="#bow" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>在mod设置中开启「<a href="../homura_index/?h=重塑后的世界#settings">重塑后的世界</a>」选项，晓美焰就可以制作魔法弓。</p>
+</div>
+<p>魔法弓是晓美焰在新世界的战斗武器，轻便灵活，基础伤害30，可以通过蓄力充能提升攻击威力。</p>
+<p>在满蓄力状态下，魔法弓会发出耀眼的光芒，射出的致命箭矢将造成150点伤害并贯穿前方所有目标。</p>
+<p>弓箭耐久为100，晓美焰可以在魔法栏位用紫宝石、蜘蛛丝和树枝制作新的魔法弓。</p>
+<p>普通玩家在使用魔法弓时只能发挥一小部分的威力。</p>
+<h3 id="_5">实现<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>如果你是一名mod开发者，对暂停机制比较感兴趣，可以参考下面的源码。</p>
+<p>普通玩家可<a href="#bottom">跳过</a></p>
+<hr />
+<h4 id="_6">如何暂停<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>饥荒原生的全局暂停接口是 TheSim:SetTimeScale(0)，不过这个玩意儿会让一切物体无差别的冻结，不能用。</p>
+<p>晓美焰的暂停参考的是 EntityScript:RemoveFromScene() 函数，并增加了一些定制的内容，如全屏变灰、阻止 scheduler、component、stategraph 的更新。</p>
+<hr />
+<h4 id="scheduler">scheduler的暂停<a class="headerlink" href="#scheduler" title="Permanent link">&para;</a></h4>
+<p>以干草的燃烧为例，一根草被点燃后，经过7.5秒的燃烧，熄灭变为灰烬，这个过程的计时是基于延时任务函数（DoTaskInTime），详细定义可在饥荒代码 scripts/scheduler.lua 找到。对于这个计时器，官方提供了添加和取消它的方法，但没有提供暂停它的方法，所以得自己写一个。
+<div class="highlight"><pre><span></span><code><span class="c1">--这个函数可以让延时任务的完成时间往后推1帧</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">PeriodicPostInit</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="kr">function</span> <span class="nc">self</span><span class="p">:</span><span class="nf">AddTick</span><span class="p">()</span>
+        <span class="kd">local</span> <span class="n">thislist</span> <span class="o">=</span> <span class="n">scheduler</span><span class="p">.</span><span class="n">attime</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">nexttick</span><span class="p">]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">nexttick</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">nexttick</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="kr">if</span> <span class="ow">not</span> <span class="n">thislist</span> <span class="kr">then</span>
+            <span class="kr">return</span>
+        <span class="kr">end</span>
+        <span class="kr">if</span> <span class="ow">not</span> <span class="n">scheduler</span><span class="p">.</span><span class="n">attime</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">nexttick</span><span class="p">]</span> <span class="kr">then</span>
+            <span class="n">scheduler</span><span class="p">.</span><span class="n">attime</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">nexttick</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="kr">end</span>
+        <span class="kd">local</span> <span class="n">nextlist</span> <span class="o">=</span> <span class="n">scheduler</span><span class="p">.</span><span class="n">attime</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">nexttick</span><span class="p">]</span>
+        <span class="n">thislist</span><span class="p">[</span><span class="n">self</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span> 
+        <span class="n">nextlist</span><span class="p">[</span><span class="n">self</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">nextlist</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+<span class="n">AddGlobalClassPostConstruct</span><span class="p">(</span><span class="s2">&quot;scheduler&quot;</span><span class="p">,</span> <span class="s2">&quot;Periodic&quot;</span><span class="p">,</span> <span class="n">PeriodicPostInit</span><span class="p">)</span>
+</code></pre></div></p>
+<p>如果想要暂停一个实体的全部延时任务，可以用以下这段代码。
+<div class="highlight"><pre><span></span><code><span class="c1">-- 遍历实体的所有计时器，并让它们的完成时间往后推1帧</span>
+<span class="c1">-- 配合组件的OnUpdate函数就能实现计时器暂停</span>
+<span class="kr">for</span> <span class="n">k</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">inst</span><span class="p">.</span><span class="n">pendingtasks</span> <span class="ow">or</span> <span class="p">{})</span><span class="kr">do</span>
+    <span class="n">k</span><span class="p">:</span><span class="n">AddTick</span><span class="p">()</span>
+<span class="kr">end</span>
+</code></pre></div></p>
+<p>这样一来，物体内部的计时器就被控制住了。这有什么作用呢？例如，一个干草已经燃烧了5秒，此时发动时停技能，则这个燃烧的草不会在技能持续期间突然变成灰烬，而是在技能结束后的2.5秒才熄灭；反之，先在地上摆5个干草，发动技能，趁技能结束前依次点燃这5个干草，那么这些干草会在技能结束后<strong>同时</strong>熄灭。（因为从逻辑上它们是被<strong>同时</strong>点燃）</p>
+<hr />
+<h4 id="_7">阻止组件更新<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>在饥荒中，很多组件存在更新机制，例如海象射出的吹箭，会以每秒30次的频率计算自己和目标的距离，如果距离小于1，就判定为击中目标。我们并不希望在撞上停止运动的飞行物后会受到伤害，所以要阻止组件的更新活动。</p>
+<p>有少部分组件的更新是不应该被暂停的，如container（容器），如果暂停的话，会导致界面无法正常关闭。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span> <span class="n">skip_components</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">--保证容器界面正常关闭</span>
+   <span class="cm">--[[......]]</span><span class="c1">--</span>
+<span class="p">}</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">ComponentPostInit</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">old_add</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">AddComponent</span>
+    <span class="kr">function</span> <span class="nc">self</span><span class="p">:</span><span class="nf">AddComponent</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">...)</span>
+        <span class="n">old_add</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="p">...)</span>
+        <span class="kr">if</span> <span class="n">skip_components</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="ow">and</span> <span class="n">self</span><span class="p">.</span><span class="n">components</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">OnUpdate</span> <span class="kr">then</span> 
+            <span class="kd">local</span> <span class="n">cmp</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">components</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="kd">local</span> <span class="n">old_up</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">OnUpdate</span>
+            <span class="n">cmp</span><span class="p">.</span><span class="n">OnUpdate</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="p">...)</span>
+                <span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">inst</span><span class="p">:</span><span class="n">HasTag</span><span class="p">(</span><span class="s1">&#39;homuraTag_pause&#39;</span><span class="p">)</span> <span class="kr">then</span> 
+                    <span class="kr">return</span>
+                <span class="kr">else</span>
+                    <span class="n">old_up</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="p">...)</span>
+                <span class="kr">end</span>
+            <span class="kr">end</span>
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="n">AddGlobalClassPostConstruct</span><span class="p">(</span><span class="s1">&#39;entityscript&#39;</span><span class="p">,</span><span class="s1">&#39;EntityScript&#39;</span><span class="p">,</span> <span class="n">ComponentPostInit</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h4 id="_8">范围搜索<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>为了游戏的流畅性，时停技能显然不应该将饥荒世界里的所有物体都控制住，它只暂停以玩家为中心，40半径范围内的物体，距离太远的东西不会受到影响（玩家一般也看不见）。</p>
+<p>在何时搜索附近实体呢？一般的思路是，在技能发动时搜索一次，把附近所有物体暂停，然后在技能结束时解除暂停状态。但略作思考就能发现问题：假如在技能持续期间，出现了一个新的物体（比如落下来一只鸟），则这个物体是无法受到控制的。因此，我们应该在每次 Update() 时进行一次搜索。</p>
+<p>搜索到的实体以哈希表的形式储存，哈希表的访问速度比数组慢，但增删操作速度比大数组快得多。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">--以每秒30次的频率搜索附近实体</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">OnUpdate</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span> 
+
+    <span class="cm">--[[......]]</span><span class="c1">--</span>
+
+    <span class="c1">--再次遍历周围实体，加入新的，移除出范围的</span>
+    <span class="kd">local</span> <span class="n">ignoretags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;INLIMBO&quot;</span><span class="p">,</span> <span class="s2">&quot;homuraTag_ignoretimemagic&quot;</span><span class="p">}</span>
+    <span class="kd">local</span> <span class="n">searchlocal</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">TheNet</span><span class="p">:</span><span class="n">IsDedicated</span><span class="p">()</span>
+    <span class="kr">for</span> <span class="n">player</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">inst</span><span class="p">.</span><span class="n">centers</span><span class="p">)</span><span class="kr">do</span> <span class="c1">--所有正在发动时停的玩家</span>
+        <span class="kd">local</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">player</span><span class="p">:</span><span class="n">GetPosition</span><span class="p">():</span><span class="n">Get</span><span class="p">()</span>
+        <span class="kd">local</span> <span class="n">ents</span> <span class="o">=</span> <span class="n">TheSim</span><span class="p">:</span><span class="n">FindEntities</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span> <span class="n">MAGIC_RADIUS</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">ignoretags</span><span class="p">)</span>
+        <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">item</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">ents</span><span class="p">)</span><span class="kr">do</span>  
+            <span class="kr">if</span> <span class="ow">not</span> <span class="n">IsMagicImmue</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">Network</span> <span class="ow">or</span> <span class="n">searchlocal</span><span class="p">)</span> <span class="kr">then</span> 
+                <span class="kr">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="kr">then</span>
+                    <span class="n">inst</span><span class="p">:</span><span class="n">AddItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">inst</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="kr">else</span>
+                    <span class="n">inst</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="kr">end</span>
+            <span class="kr">end</span>
+
+            <span class="cm">--[[......]]</span><span class="c1">--</span>
+
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+
+    <span class="c1">--如果对应值仍然为1，则移除</span>
+    <span class="c1">--如果对应值为2，不移除，并重置为1，然后对这些实体进行更新</span>
+    <span class="kr">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">inst</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="kr">do</span>
+        <span class="kr">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">1</span> <span class="kr">then</span> 
+            <span class="n">inst</span><span class="p">:</span><span class="n">RemoveItem</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="kr">end</span>
+        <span class="kr">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">2</span> <span class="kr">then</span> 
+            <span class="n">inst</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">ItemTimeMagicUpdate</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+
+    <span class="cm">--[[......]]</span><span class="c1">--</span>
+<span class="kr">end</span>
+</code></pre></div>
+<p id="bottom"> </p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../homura_index/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 简介" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              简介
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../homura_structure/" class="md-footer__link md-footer__link--next" aria-label="下一页: 建筑" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              建筑
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      
+    
+  </body>
+</html>

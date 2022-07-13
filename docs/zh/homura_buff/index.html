@@ -1,0 +1,1687 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+
+<style type="text/css">
+  .md-content figure{
+    padding-top: 30px;
+  }
+  .md-content figcaption{
+    margin-bottom: 0px!important;
+  }
+  h3 {
+    /*color: var(--md-accent-fg-color);*/
+    color: var(--md-typeset-a-color);
+  }
+  .common-box {
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: double;
+    padding: 5px 20px !important;
+    /*border-color: red;*/
+    /*background-color: rgb(255,230,230);*/
+  }
+
+  .common-box a{
+    font-weight: 600;
+  }
+
+  @media screen and (max-width:750px){ 
+    video{
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>
+<script type="text/javascript">
+  // START
+  // 批量设置动图宽度
+  function setGifWidth() {
+    var content = document.querySelector('.md-content');
+    if (content != null){
+      var imgs = content.getElementsByTagName('img');
+      for (var i = 0; i < imgs.length; ++i){
+        if (imgs[i].getAttribute('src').endsWith(".gif")){
+          if (!imgs[i].hasAttribute('width')){
+            imgs[i].setAttribute('width', '400');
+          }
+          imgs[i].setAttribute('loading', 'lazy');
+        }
+      }
+    }
+  }
+  // 批量修改小图标大小
+  function setTitleIconWidth() {
+    var imgs = document.querySelectorAll('h3>img');
+    for (var i = 0; i < imgs.length; ++i){
+      if (!imgs[i].hasAttribute('width')){
+        imgs[i].setAttribute('width', '35');
+        imgs[i].setAttribute('style', 'margin-right:8px;vertical-align:middle;');
+      }
+    }
+  }
+  // 添加视频
+  function setVideos() {
+    var videos = document.querySelectorAll('video');
+    for (var i = 0; i < videos.length; ++i){
+      var v = videos[i];
+      if (!v.hasAttribute('autoplay')){
+        v.setAttribute('autoplay', 'autoplay');
+      }
+      if (!v.hasAttribute('playsinline')){
+        v.setAttribute('playsinline', 'playsinline');
+      }
+      if (!v.hasAttribute('webkit-playsinline')){
+        v.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      }
+      if (!v.hasAttribute('muted')){
+        v.setAttribute('muted', 'muted');
+      }
+      if (!v.hasAttribute('loop')){
+        v.setAttribute('loop', 'loop');
+      }
+      if (!v.hasAttribute('width')){
+        v.setAttribute('width', '400');
+      }
+      // var name = v.getAttribute('lw-name');
+      // var source = document.createElement('source');
+      // source.setAttribute('src', 'http://mod.3vcm.vip/videos/'+name);
+      // source.setAttribute('type', 'video/mp4');
+      // v.appendChild(source);
+
+      var txt =document.createTextNode("'您的浏览器不支持 video 标签，建议使用 Chrome、Safari、Edge 等现代浏览器。'");
+      v.appendChild(txt);
+    }
+  }
+  // 添加新js脚本调整颜色
+  function getPalette() {
+    var path = location.pathname;
+    var theme = {
+      "homura": {
+        "default": "deep-purple",
+      },
+      "momo": {
+        "default": "pink",
+      },
+      "ohtoai": {
+        "default": "amber",
+      },
+      "bugtracker": {
+        "default": "black",
+      },
+      "luckwater": {
+        "default": "light-blue"
+      },
+      "home": {
+        "default": "green",
+      },
+      "default": {
+        "default": "black"
+      },
+    }
+    for (var key in theme){
+      if (path.indexOf(key) != -1){
+        return theme[key];
+      }
+    }
+    return theme.default;
+  }
+  function dictGetValue(obj, key){
+    if (typeof obj == "string"){
+      return obj;
+    }
+    else if (obj[key]){
+      return obj[key];
+    }
+    else{
+      return obj["default"];
+    }
+  }
+
+  function changePalette() {
+    var color = getPalette()
+    console.log("Color:", color);
+    // html body
+    body = document.body;
+    // 深浅色切换器
+    var form = document.querySelector('header>nav>.md-header__option');
+    if (form != null){
+      var i = 0;
+      var label = form.getElementsByClassName('md-icon');
+      var option = form.getElementsByClassName('md-option');
+
+      for (i = 0; i < option.length; ++i){
+        var scheme = option[i].getAttribute('data-md-color-scheme');
+        var data = dictGetValue(color, scheme);
+        var primary = dictGetValue(data, "primary");
+        var accent  = dictGetValue(data, "accent");
+        option[i].setAttribute('data-md-color-primary', primary);
+        option[i].setAttribute('data-md-color-accent', accent);
+        if (!label[i].hasAttribute('hidden')){
+          // 顺便设置一下主题颜色
+          body.setAttribute('data-md-color-primary', primary);
+          body.setAttribute('data-md-color-accent', accent);
+        }
+      }
+    } 
+    else{
+    }
+  }
+
+  function setHighlight(){
+    console.log("setHighlight")
+    var reg = new RegExp("h=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg)[1];
+    if (r != null) {
+      r = decodeURIComponent(r);
+      var content = document.getElementById("md-content").innerHTML;
+      console.log(r)
+      var reg = new RegExp("(" + r + ")", "g");  
+      var str = content;  
+      var newstr = str.replace(reg, "<span style='background-color:#EBEC4F'>$1</span>");
+      document.getElementById("md-content").innerHTML = newstr;
+    }
+  }
+
+  function modPageInit() {
+    changePalette();
+    setGifWidth();
+    setTitleIconWidth();
+    setVideos();
+    setHighlight();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', modPageInit);
+  } else {
+    modPageInit();
+  }
+// END
+</script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="老王">
+      
+      
+        <link rel="canonical" href="https://dont-starve-mod.gitee.io/ohto-ai-doc/zh/homura_buff/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>配件 - 老王的饥荒模组合集</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lv1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-header__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            老王的饥荒模组合集
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              配件
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../home/" class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../dsa_index/" class="md-tabs__link">
+        独行长路
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../momo_index/" class="md-tabs__link">
+        千代田桃
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../homura_index/" class="md-tabs__link md-tabs__link--active">
+        晓美焰
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../bugtracker_index/" class="md-tabs__link">
+        错误追踪
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ohtoai_character/" class="md-tabs__link">
+        大户爱
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../madoka_index/" class="md-tabs__link">
+        魔法少女小圆
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../luckwater_index/" class="md-tabs__link">
+        幸运之水
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      关于作者
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-nav__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    老王的饥荒模组合集
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../home/" class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          独行长路
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="独行长路" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          独行长路
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_pmode/" class="md-nav__link">
+        偏执模式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          千代田桃
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="千代田桃" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          千代田桃
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          晓美焰
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="晓美焰" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          晓美焰
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_structure/" class="md-nav__link">
+        建筑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_explosive/" class="md-nav__link">
+        爆破
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_gun/" class="md-nav__link">
+        枪械
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          配件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        配件
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lv1" class="md-nav__link">
+    红点准镜
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    刺刀
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    消音器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    电磁加速线圈
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lv2" class="md-nav__link">
+    制冷装置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    代码编辑器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    魔术回路
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    风车
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    防水涂料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    鼠标宏
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    眼睛
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    牛顿的棺材板
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    四次元的弹夹
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    沙漏
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wormhole" class="md-nav__link">
+    迷你虫洞
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    棱镜
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_future/" class="md-nav__link">
+        更新计划
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          错误追踪
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="错误追踪" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          错误追踪
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_content/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_qa/" class="md-nav__link">
+        问题和回答
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_collectdata/" class="md-nav__link">
+        数据收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_update/" class="md-nav__link">
+        更新日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          大户爱
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="大户爱" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          大户爱
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohtoai_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          魔法少女小圆
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="魔法少女小圆" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          魔法少女小圆
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madoka_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          幸运之水
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="幸运之水" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          幸运之水
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../luckwater_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        关于作者
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lv1" class="md-nav__link">
+    红点准镜
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    刺刀
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    消音器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    电磁加速线圈
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lv2" class="md-nav__link">
+    制冷装置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    代码编辑器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    魔术回路
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    风车
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    防水涂料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    鼠标宏
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    眼睛
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    牛顿的棺材板
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    四次元的弹夹
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    沙漏
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wormhole" class="md-nav__link">
+    迷你虫洞
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    棱镜
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content" id="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>配件</h1>
+
+<style>
+.block{
+    color: rgba(0,0,0,0);
+    background-color:  black;
+    border-radius: 1px;
+}
+</style>
+
+<p>配件可以安装在枪械武器上，提供各种加成效果。制造配件和安装配件都需要站在<a href="../homura_structure/">武器工作台</a>的附近。</p>
+<hr />
+<h3 id="lv1"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a3365.png" />红点准镜<a class="headerlink" href="#lv1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_lens&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>辅助瞄准工具，能增加射击精度。 </li>
+<li>配方：烤熟的浆果×1，蓝宝石×1，木头×1。 </li>
+<li>效果：弹道偏移-30%。 </li>
+</ul>
+<h3 id="_1"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a3328.png" />刺刀<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_knife&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：燧石×10。</li>
+<li>效果：枪的<strong>近战伤害</strong>+20。</li>
+</ul>
+<h3 id="_2"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5ddd.png" />消音器<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_silent&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>用多孔疏松材料来吸收射击噪声。</li>
+<li>配方：保温石×1，木炭×2。</li>
+<li>效果：在背后射击不引起目标的仇恨。</li>
+</ul>
+<h3 id="_3"><img alt="" src="https://pic.imgdb.cn/item/60e1be815132923bf8648bd7.png" />电磁加速线圈<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_flyingspeed&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>利用电磁力加速子弹，安培定则的绝佳实践。</li>
+<li>配方：烂电线×6，红宝石×1，蓝宝石×1。</li>
+<li>效果：增加子弹的射速和射程，使子弹能穿透多个目标。</li>
+<li>可叠加。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">安装数</th>
+<th align="left">子弹速度</th>
+<th align="left">射程</th>
+<th align="left">增加穿透数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">+20%</td>
+<td align="left">+10%</td>
+<td align="left">+1</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">+40%</td>
+<td align="left">+20%</td>
+<td align="left">+2</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">+60%</td>
+<td align="left">+30%</td>
+<td align="left">+3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>注意: 当子弹穿过物理碰撞体积较大的目标，将进行多次伤害判定</strong>。如巨鹿的碰撞半径为1.5（取整至2），若安装1个电磁加速线圈，子弹穿透数为2，命中巨鹿会造成2次伤害，并耗尽2层穿透数，子弹消失。</li>
+</ul>
+<h3 id="lv2"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a330d.png" />制冷装置<a class="headerlink" href="#lv2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_ice&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>本产品不含氟利昂。</li>
+<li>配方：冰帽×1，蓝宝石×3，齿轮×1。</li>
+<li>效果：移除火箭弹的点燃效果 &amp; 击中目标时造成冰冻。</li>
+<li>可叠加。 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">安装数</th>
+<th align="left">冰冻层数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">1.5</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">4.5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4"><img alt="" src="https://pic.imgdb.cn/item/60e1be815132923bf8648b89.png" />代码编辑器<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_code&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：胡须×16。</li>
+<li>效果：复制它左侧的配件。灵感来自植物大战僵尸的模仿者。</li>
+<li>如果代码编辑器被置于配件槽的第一格，或它的左侧未安装其他配件，则不发挥任何作用。</li>
+</ul>
+<h3 id="_5"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a3384.png" />魔术回路<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_magic&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：紫宝石×4，噩梦燃料×6。</li>
+<li>效果：子弹附加无视防御的<strong>真实伤害</strong>；开枪会消耗理智值。理智不足时，该效果不会触发。</li>
+<li>可叠加。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">安装数</th>
+<th align="left">附加伤害</th>
+<th align="left">理智消耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">10</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">20</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">30</td>
+<td align="left">3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5e4f.png" />风车<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_wind&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>讨厌风大的日子吗？</li>
+<li>配方：红羽毛×6，白羽毛×6，黑羽毛×6。</li>
+<li>效果：如果子弹打到空气了，有一定几率刮起一阵旋风。旋风会造成范围伤害并摧毁周围建筑。</li>
+<li>可叠加。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">安装数</th>
+<th align="left">概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">5%</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">10%</td>
+</tr>
+<tr>
+<td align="left"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.36 10.46-7.82-7.82c-.85-.85-2.23-.85-3.08 0l-7.82 7.82c-.85.85-.85 2.23 0 3.08l7.82 7.82c.85.85 2.23.85 3.08 0l7.82-7.82c.85-.85.85-2.23 0-3.08M12 19l-7-7 7-7 7 7-7 7m4.5-7L12 16.5 7.5 12 12 7.5l4.5 4.5z"/></svg></span></td>
+<td align="left">15%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5e25.png" />防水涂料<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_waterproof&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：蜂蜡×1 猪皮×2。</li>
+<li>效果：让枪不会被水打湿。</li>
+</ul>
+<h3 id="_8"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5dbb.png" />鼠标宏<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_mouse&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：芦苇纸×29，代码编辑器×1，金块×1。</li>
+<li>效果：完美压制枪的弹道偏移。</li>
+</ul>
+<h3 id="_9"><img alt="" src="https://pic.imgdb.cn/item/60e1be815132923bf8648baf.png" />眼睛<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_eye_lens&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>狙击枪专用的高级瞄准镜。</li>
+<li>配方：红点准镜×1，巨鹿眼球×1，金块×4。</li>
+<li>效果：使枪可以进行远距离狙击，只对AWM生效，其他武器无法安装。</li>
+</ul>
+<h3 id="_10"><img alt="" src="https://pic.imgdb.cn/item/60e1be815132923bf8648c06.png" />牛顿的棺材板<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_homing&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>让子弹拐弯是有原理的，就是射手在子弹出膛的那一刹那，手腕急速的抖动，给了子弹一个水平的加速度，从而形成一个弧线，这就是枪斗术。</li>
+<li>配方：眼睛×1，木板×10。</li>
+<li>效果：使子弹追踪目标，但造成的伤害减少20%。</li>
+</ul>
+<h3 id="_11"><img alt="" src="https://pic.imgdb.cn/item/60e1be805132923bf8648b78.png" />四次元的弹夹<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_clip&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：活木×2，噩梦燃料×40。</li>
+<li>效果：武器最大载弹量×10。</li>
+<li><strong>卸下</strong>该配件时，溢出的子弹会置入物品栏。</li>
+</ul>
+<h3 id="_12"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5e03.png" />沙漏<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_time&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>最没用的配件没有之一。</li>
+<li>配方：紫宝石×1，砂之石×1。</li>
+<li>使子弹免疫时间停止的魔法。</li>
+</ul>
+<h3 id="wormhole"><img alt="" src="https://pic.imgdb.cn/item/60e1c0565132923bf8729677.png" />迷你虫洞<a class="headerlink" href="#wormhole" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_wormhole&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>迷你版的虫洞，只能传送小物品，比如子弹。</li>
+<li>配方：怪物肉x4，紫宝石x3，狗牙x5。</li>
+<li>效果：在开枪射击时优先消耗物品栏内的子弹，省去填弹的烦恼，一次射到爽。</li>
+<li>对火箭发射器无效。</li>
+</ul>
+<h3 id="_13"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a333d.png" />棱镜<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_laser&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>配方：月亮碎片x10。</li>
+<li>效果：子弹碰撞到墙体会发生反射，最多3次。</li>
+<li>在计算反射角时，墙被视为正方形；除了月岩墙，其他墙体每次反射都会造成25%的伤害衰减。</li>
+</ul>
+<p><img alt="" src="https://pic.imgdb.cn/item/60bd038d844ef46bb2b26ee5.gif" /></p>
+<!-- 
+
+### 【新】？？？？？？
+- <span class="block">总计耗费350阳光。</span>
+- <span class="block">配方：？？？</span>
+- <span class="block">效果：弹道偏移增加，子弹飞行速度减少50%，每次射击发射3枚子弹，每枚子弹只造成20%的基础伤害。</span>
+- <span class="block">建议与其他配件配合使用。</span>
+
+ -->
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../homura_gun/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 枪械" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              枪械
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../homura_future/" class="md-footer__link md-footer__link--next" aria-label="下一页: 更新计划" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              更新计划
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      
+    
+  </body>
+</html>

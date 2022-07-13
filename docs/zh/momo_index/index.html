@@ -1,0 +1,1809 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+
+<style type="text/css">
+  .md-content figure{
+    padding-top: 30px;
+  }
+  .md-content figcaption{
+    margin-bottom: 0px!important;
+  }
+  h3 {
+    /*color: var(--md-accent-fg-color);*/
+    color: var(--md-typeset-a-color);
+  }
+  .common-box {
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: double;
+    padding: 5px 20px !important;
+    /*border-color: red;*/
+    /*background-color: rgb(255,230,230);*/
+  }
+
+  .common-box a{
+    font-weight: 600;
+  }
+
+  @media screen and (max-width:750px){ 
+    video{
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>
+<script type="text/javascript">
+  // START
+  // 批量设置动图宽度
+  function setGifWidth() {
+    var content = document.querySelector('.md-content');
+    if (content != null){
+      var imgs = content.getElementsByTagName('img');
+      for (var i = 0; i < imgs.length; ++i){
+        if (imgs[i].getAttribute('src').endsWith(".gif")){
+          if (!imgs[i].hasAttribute('width')){
+            imgs[i].setAttribute('width', '400');
+          }
+          imgs[i].setAttribute('loading', 'lazy');
+        }
+      }
+    }
+  }
+  // 批量修改小图标大小
+  function setTitleIconWidth() {
+    var imgs = document.querySelectorAll('h3>img');
+    for (var i = 0; i < imgs.length; ++i){
+      if (!imgs[i].hasAttribute('width')){
+        imgs[i].setAttribute('width', '35');
+        imgs[i].setAttribute('style', 'margin-right:8px;vertical-align:middle;');
+      }
+    }
+  }
+  // 添加视频
+  function setVideos() {
+    var videos = document.querySelectorAll('video');
+    for (var i = 0; i < videos.length; ++i){
+      var v = videos[i];
+      if (!v.hasAttribute('autoplay')){
+        v.setAttribute('autoplay', 'autoplay');
+      }
+      if (!v.hasAttribute('playsinline')){
+        v.setAttribute('playsinline', 'playsinline');
+      }
+      if (!v.hasAttribute('webkit-playsinline')){
+        v.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      }
+      if (!v.hasAttribute('muted')){
+        v.setAttribute('muted', 'muted');
+      }
+      if (!v.hasAttribute('loop')){
+        v.setAttribute('loop', 'loop');
+      }
+      if (!v.hasAttribute('width')){
+        v.setAttribute('width', '400');
+      }
+      // var name = v.getAttribute('lw-name');
+      // var source = document.createElement('source');
+      // source.setAttribute('src', 'http://mod.3vcm.vip/videos/'+name);
+      // source.setAttribute('type', 'video/mp4');
+      // v.appendChild(source);
+
+      var txt =document.createTextNode("'您的浏览器不支持 video 标签，建议使用 Chrome、Safari、Edge 等现代浏览器。'");
+      v.appendChild(txt);
+    }
+  }
+  // 添加新js脚本调整颜色
+  function getPalette() {
+    var path = location.pathname;
+    var theme = {
+      "homura": {
+        "default": "deep-purple",
+      },
+      "momo": {
+        "default": "pink",
+      },
+      "ohtoai": {
+        "default": "amber",
+      },
+      "bugtracker": {
+        "default": "black",
+      },
+      "luckwater": {
+        "default": "light-blue"
+      },
+      "home": {
+        "default": "green",
+      },
+      "default": {
+        "default": "black"
+      },
+    }
+    for (var key in theme){
+      if (path.indexOf(key) != -1){
+        return theme[key];
+      }
+    }
+    return theme.default;
+  }
+  function dictGetValue(obj, key){
+    if (typeof obj == "string"){
+      return obj;
+    }
+    else if (obj[key]){
+      return obj[key];
+    }
+    else{
+      return obj["default"];
+    }
+  }
+
+  function changePalette() {
+    var color = getPalette()
+    console.log("Color:", color);
+    // html body
+    body = document.body;
+    // 深浅色切换器
+    var form = document.querySelector('header>nav>.md-header__option');
+    if (form != null){
+      var i = 0;
+      var label = form.getElementsByClassName('md-icon');
+      var option = form.getElementsByClassName('md-option');
+
+      for (i = 0; i < option.length; ++i){
+        var scheme = option[i].getAttribute('data-md-color-scheme');
+        var data = dictGetValue(color, scheme);
+        var primary = dictGetValue(data, "primary");
+        var accent  = dictGetValue(data, "accent");
+        option[i].setAttribute('data-md-color-primary', primary);
+        option[i].setAttribute('data-md-color-accent', accent);
+        if (!label[i].hasAttribute('hidden')){
+          // 顺便设置一下主题颜色
+          body.setAttribute('data-md-color-primary', primary);
+          body.setAttribute('data-md-color-accent', accent);
+        }
+      }
+    } 
+    else{
+    }
+  }
+
+  function setHighlight(){
+    console.log("setHighlight")
+    var reg = new RegExp("h=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg)[1];
+    if (r != null) {
+      r = decodeURIComponent(r);
+      var content = document.getElementById("md-content").innerHTML;
+      console.log(r)
+      var reg = new RegExp("(" + r + ")", "g");  
+      var str = content;  
+      var newstr = str.replace(reg, "<span style='background-color:#EBEC4F'>$1</span>");
+      document.getElementById("md-content").innerHTML = newstr;
+    }
+  }
+
+  function modPageInit() {
+    changePalette();
+    setGifWidth();
+    setTitleIconWidth();
+    setVideos();
+    setHighlight();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', modPageInit);
+  } else {
+    modPageInit();
+  }
+// END
+</script>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="老王">
+      
+      
+        <link rel="canonical" href="https://dont-starve-mod.gitee.io/ohto-ai-doc/zh/momo_index/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>简介 - 老王的饥荒模组合集</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-header__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            老王的饥荒模组合集
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              简介
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../home/" class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../dsa_index/" class="md-tabs__link">
+        独行长路
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        千代田桃
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../homura_index/" class="md-tabs__link">
+        晓美焰
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../bugtracker_index/" class="md-tabs__link">
+        错误追踪
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ohtoai_character/" class="md-tabs__link">
+        大户爱
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../madoka_index/" class="md-tabs__link">
+        魔法少女小圆
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../luckwater_index/" class="md-tabs__link">
+        幸运之水
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      关于作者
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="/lw/zh/home" title="老王的饥荒模组合集" class="md-nav__button md-logo" aria-label="老王的饥荒模组合集" data-md-component="logo">
+      
+  <img src="https://pic.imgdb.cn/item/6194b9462ab3f51d9154d00b.png" alt="logo">
+
+    </a>
+    老王的饥荒模组合集
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../home/" class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          独行长路
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="独行长路" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          独行长路
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsa_pmode/" class="md-nav__link">
+        偏执模式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          千代田桃
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="千代田桃" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          千代田桃
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          简介
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        简介
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基础属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    是一位已退役的魔法少女
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    笨拙的料理技巧
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    同时拥有光和暗的力量
+  </a>
+  
+    <nav class="md-nav" aria-label="同时拥有光和暗的力量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    （1）光暗转换
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    （2）光之一族的能力
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    （3）暗之一族的能力
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#item" class="md-nav__link">
+    特殊道具
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊道具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    吉祥物帽子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    梅塔子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    炽烈桃心变身杖
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    银质魔法棒
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    “夜色”
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    碎冰冰（蜜桃风味）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    运动饮料
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    秘制蛋白饮品
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    暗堕稳定剂
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    作者留言
+  </a>
+  
+    <nav class="md-nav" aria-label="作者留言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    关于其他角色：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    关于魔杖：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    关于暗桃的武器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../momo_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          晓美焰
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="晓美焰" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          晓美焰
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_structure/" class="md-nav__link">
+        建筑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_explosive/" class="md-nav__link">
+        爆破
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_gun/" class="md-nav__link">
+        枪械
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_buff/" class="md-nav__link">
+        配件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homura_future/" class="md-nav__link">
+        更新计划
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          错误追踪
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="错误追踪" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          错误追踪
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_content/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_qa/" class="md-nav__link">
+        问题和回答
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_collectdata/" class="md-nav__link">
+        数据收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugtracker_update/" class="md-nav__link">
+        更新日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          大户爱
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="大户爱" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          大户爱
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohtoai_character/" class="md-nav__link">
+        人物
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          魔法少女小圆
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="魔法少女小圆" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          魔法少女小圆
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madoka_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          幸运之水
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="幸运之水" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          幸运之水
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../luckwater_index/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        关于作者
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基础属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    是一位已退役的魔法少女
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    笨拙的料理技巧
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    同时拥有光和暗的力量
+  </a>
+  
+    <nav class="md-nav" aria-label="同时拥有光和暗的力量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    （1）光暗转换
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    （2）光之一族的能力
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    （3）暗之一族的能力
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#item" class="md-nav__link">
+    特殊道具
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊道具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    吉祥物帽子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    梅塔子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    炽烈桃心变身杖
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    银质魔法棒
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    “夜色”
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    碎冰冰（蜜桃风味）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    运动饮料
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    秘制蛋白饮品
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    暗堕稳定剂
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    作者留言
+  </a>
+  
+    <nav class="md-nav" aria-label="作者留言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    关于其他角色：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    关于魔杖：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    关于暗桃的武器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content" id="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>简介</h1>
+
+<style>
+    .momo-quote {font-style: italic;}
+    .momo-feature-box {border: solid 1px #ccc;}
+    .momo-strong {color: #f33; font-weight: bold; font-size: 1.2em;}
+
+    blockquote {font-style: italic; color: #ccc; border-left-width: 0px!important;}
+    blockquote {padding-left: 0px!important;}
+
+    .md-typeset :is(.note)>:is(.admonition-title,summary) {border-left-color: #ff44a7; background-color:rgba(255, 77, 215, 0.1)}
+    .md-typeset :is(.admonition,details):is(.note) {border-left-color: #ff44a7;}
+    .md-typeset :is(.note)>:is(.admonition-title,summary):before {background-color: #ff44a7;}
+
+    article.md-typeset > h4 {margin-top: 2em;}
+    .first-h4 {margin-top: 1em!important;}
+    .e-egg {color: rgba(255,255,255,0.01)!important; font-size: 0.5em; margin: 0 0;}
+
+    [data-md-color-primary=pink] {
+        --md-primary-fg-color: #e666c8;
+        --md-primary-fg-color--light: #bb69c9;
+        --md-primary-fg-color--dark: #8c24a8;
+        --md-primary-bg-color: #fff;
+        --md-primary-bg-color--light: hsla(0,0%,100%,.7);
+    }
+
+</style>
+
+<h3 id="_1">基础属性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>饥饿: 150</li>
+<li>理智: 200</li>
+<li>生命: 200</li>
+<li>魔法: 300</li>
+</ul>
+<h3 id="_2">是一位已退役的魔法少女<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>第一行</p>
+<p>魔法少女的身体几乎由以太体构成，一旦损失过多的魔力，就会变的非常脆弱。</p>
+<p>尽管能使用魔法，桃却更喜欢肌肉的力量，是狂热的健身爱好者，能徒手捏碎握力器。</p>
+<blockquote>
+<p>“魔法是可以用物理来超越的。”</p>
+</blockquote>
+<p><strong>特性：</strong></p>
+<ul>
+<li>攻击倍数为1.25x。</li>
+<li>拥有一个300点的魔力槽，生命上限受魔力值影响。魔力值越低，生命值上限越低（最低为1）。</li>
+<li>平时可以缓慢的恢复魔力，当理智高于85%时，魔力恢复速度翻倍。</li>
+</ul>
+<details class="note">
+<summary>魔力值与生命上限的关系</summary>
+<p>生命上限（H）与魔力值（M）的计算公式为：</p>
+<p><code>H = 2M - M<sup>2</sup></code></p>
+<table>
+<thead>
+<tr>
+<th>魔力</th>
+<th>100%</th>
+<th>90%</th>
+<th>80%</th>
+<th>70%</th>
+<th>60%</th>
+<th>50%</th>
+<th>40%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生命上限</td>
+<td>100%</td>
+<td>99%</td>
+<td>96%</td>
+<td>91%</td>
+<td>84%</td>
+<td>75%</td>
+<td>64%</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>魔力</th>
+<th>30%</th>
+<th>20%</th>
+<th>10%</th>
+<th>5%</th>
+<th>2%</th>
+<th>0%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生命上限</td>
+<td>51%</td>
+<td>36%</td>
+<td>19%</td>
+<td>10%</td>
+<td>4%</td>
+<td>0%（不低于1）</td>
+</tr>
+</tbody>
+</table>
+<p>在魔力储备充足时，损失一些魔力，不会对生命上限造成太大影响。</p>
+<p>相反，在魔力匮乏时，少量的魔力损耗就会导致巨大的生命值波动。</p>
+</details>
+<h3 id="_3">笨拙的料理技巧<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>桃的烹饪能力非常糟糕，费尽心思制作的一道牛肉汉堡排，被评价为：“只尝得出盐、洋葱和碳的味道”。 </p>
+<p>为了让料理看起来更美味，桃有时甚至会向食物中注入魔力，但最终成品都…有些微妙。</p>
+<blockquote>
+<p>“桃，冷静，食材在发光！”</p>
+</blockquote>
+<p><strong>特性：</strong></p>
+<ul>
+<li>使用烹饪锅有75%的概率失败。</li>
+<li>烹饪失败时得到一个【桃色的失败料理】。</li>
+<li>【桃色的失败料理】似乎残留有一些魔法，最好别拿来吃！</li>
+</ul>
+<details class="note">
+<summary>桃色的失败料理 详细设定</summary>
+<details class="warning">
+<summary>查看详细设定会让你<span class=momo-strong>失去探索未知的乐趣!</span><br>确定要这么做?</summary>
+<details class="warning">
+<summary>真的真的要看吗??</summary>
+<p><p>桃在烹饪「任何食物」时均可能失败，包括失败料理！（试试在锅中放四根树枝）。</p>
+<p>“桃色的失败料理”有四种形态，和烹饪使用的食材有关。</p>
+<p>吃这些失败料理会引发短暂的幻觉，不过很快就能恢复正常。</p>
+<h3>共性</h3>
+<p>可堆叠，可作燃料，可食用，有6天的保质期。</p>
+<h3>发芽的鸡蛋</h3>
+<p>如果食材中包含蛋类，则有概率做出。</p>
+<p>食用后扣除60理智，回复20血。</p>
+<p>可种植，变成一个随机的植物。</p>
+<h3>粉红饭团</h3>
+<p>有较大概率做出。</p>
+<p>食用后扣除30理智，回复37.5饥饿，记忆受到短暂的影响，1分钟内无法探开地图黑雾和解锁新的制作配方。</p>
+<h3>粉色气泡饮料</h3>
+<p>有较大概率做出。</p>
+<p>食用后回复1理智，1生命，1饥饿，并立刻进入睡眠状态。</p>
+<h3>富含魔力的肉</h3>
+<p>如果食材中包含不小于2的肉度/鱼度，则有概率做出。</p>
+<p>食用后回复75饥饿，30魔力。</p></p>
+</details>
+</details>
+</details>
+<h3 id="_4">同时拥有光和暗的力量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>为了营救被困在梦境中的夏美子，桃暂时成为了夏美子的眷属，获得暗之一族的能力，转换成为暗堕形态。</p>
+<p>虽然随后用光属性魔法强行消除了暗堕，但桃的核心变得非常不稳定，基本位于光和暗的分界线上，一旦心情郁闷，便会重新陷入暗堕状态。</p>
+<p>桃对暗堕模式的魔力操控还太熟练。</p>
+<blockquote>
+<p>“只是把能量源从光切换到了暗，不会影响人格，这个可以保证！”</p>
+</blockquote>
+<p><strong>特性：</strong></p>
+<h4 id="1">（1）光暗转换<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>理智值归零时，强制触发暗堕状态。</li>
+<li>在暗堕状态下<strong>无法回复魔力</strong>，并且会以一定的速率逐渐损失魔力。</li>
+<li>如果理智高于15%，暗堕状态会在一段时间后自动解除，理智越高恢复时间越短。</li>
+<li>死亡复活也能清除暗堕状态。</li>
+</ul>
+<h4 id="2">（2）光之一族的能力<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>可以制作【银质魔法棒】和【炽烈桃心变身杖】。</li>
+<li>【银质魔法棒】造成高伤害的远程单体攻击，并消耗较多的魔力。</li>
+<li>用【炽烈桃心变身杖】随时随地换衣服。</li>
+</ul>
+<h4 id="3">（3）暗之一族的能力<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>可以制作 【“夜色”】。</li>
+<li>【银质魔法棒】造成轻微的伤害，并消耗少量的魔力。</li>
+<li>暗影类武器受到1.5倍的伤害加成。</li>
+</ul>
+<h3 id="item">特殊道具<a class="headerlink" href="#item" title="Permanent link">&para;</a></h3>
+<h4 class="first-h4" id="_5">吉祥物帽子<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_mascothat&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+以吉祥物“多魔樱花酱”为原型设计的帽子。</p>
+<p>桃很喜欢这个吉祥物，因为配色和她姐姐的战斗服一模一样。</p>
+<ul>
+<li>配方：猫尾巴，荧光果x6。</li>
+<li>小范围发光（使用荧光果填充），慢速回复理智。</li>
+</ul>
+<p class="e-egg">“但话说回来，你们关系这么亲密，真是太好了。”</p>
+
+<h4 id="_6">梅塔子<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">c_spawn</span><span class="p">(</span><span class="s2">&quot;momo_cat&quot;</span><span class="p">)</span>
+</code></pre></div>
+“时机已到！”</p>
+<ul>
+<li>配方：鱼条x1。</li>
+</ul>
+<h4 id="_7">炽烈桃心变身杖<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_stick_morphing&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>在任何时间，任何地点，都能快速换装的神奇魔杖。</p>
+<p><em>老练的魔法少女仅需0.01秒就能穿好战斗服。</em></p>
+<ul>
+<li>配方：活木x1，救赎之心x1。</li>
+<li><em>注意：【炽烈桃心变身杖】无法在暗堕状态下制作。</em></li>
+</ul>
+<h4 id="_8">银质魔法棒<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_stick_attack&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+一根能用于远程攻击的长棒，很有魔法的风格。</p>
+<ul>
+<li>配方：活木x2，月亮碎片x2，红宝石x2。需要灵子分解器。</li>
+<li>200耐久。</li>
+<li>通常状态下造成33伤害，暗堕状态下造成15伤害。</li>
+<li>
+<p>有一个小彩蛋，找找看吧。</p>
+</li>
+<li>
+<p><em>注意：【银质魔法棒】无法在暗堕状态下制作。</em></p>
+</li>
+</ul>
+<h4 id="_9">“夜色”<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_sword&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>黑暗梦魇在梦境中使用的强大武器。</p>
+<ul>
+<li>配方：暗夜剑，噩梦护符，乌鸦羽毛x6。</li>
+<li>75耐久。</li>
+<li>75伤害。</li>
+<li>如果攻击时击杀敌人，则当次攻击<strong>不消耗</strong>耐久。</li>
+<li><em>注意：【“夜色”】只能在暗堕状态下制作。</em></li>
+</ul>
+<h4 id="_10">碎冰冰（蜜桃风味）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_peachice&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>适合与好朋友一起分享。</p>
+<ul>
+<li>配方：冰块x1，多汁浆果x3，仙人掌花x1。</li>
+<li>回复20理智和15魔力。</li>
+</ul>
+<h4 id="_11">运动饮料<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_sportsdrink&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>经过3倍稀释以降低渗透压。</p>
+<ul>
+<li>配方：舒缓茶x1，盐晶x1。</li>
+<li>回复37.5饥饿值和30魔力，可以饮用3次。</li>
+</ul>
+<h4 id="_12">秘制蛋白饮品<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_protein&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>健身人士力荐。</p>
+<ul>
+<li>配方：炖兔子x1，烤高脚鸟蛋x1，象鼻排x1。（制作该物品需要5秒）</li>
+<li>立刻回复100饥饿值；1分钟内，持续将饥饿值转换为生命和魔力回复。</li>
+</ul>
+<h4 id="_13">暗堕稳定剂<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;momo_darknesspill&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>仅在紧急情况下使用。</p>
+<ul>
+<li>配方：蛋白石，噩梦燃料x8，空瓶。需要暗影操控器。</li>
+<li>服用后，扣除60理智，魔力值变为100%，强制进入持续10分钟的暗堕状态，且魔力流失速率减少75%。</li>
+<li>角色死亡时会清除药效。</li>
+</ul>
+<hr />
+<h3 id="_14">作者留言<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h4 id="_15">关于其他角色：<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>桃的四套模型是老王掏了 2000RMB 请别的画师画的，加上老王受到了“<strong>每个月最多花2000块钱</strong>”的诅咒，所以已经没有经费做其他角色了！</p>
+<p>如果你喜欢夏美子、蜜柑或者樱姐，想让她们也来到饥荒的世界，请自由发挥，无需任何顾虑。</p>
+<h4 id="_16">关于魔杖：<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>桃在训练夏美子时用的是一根比较长的银色魔杖，变身时用的则是一根很短的法杖（动画第二季指出法杖名为“炽烈桃心变身杖”）。</p>
+<p>这两个应该是同一根魔杖的不同形态（攻击模式 vs 换装模式），但是为了方便使用，在游戏里分成了两根。</p>
+<h4 id="_17">关于暗桃的武器：<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>桃的武器就是一把黑色的刀，原作没说是什么名字，所以老王自己取了一个。</p>
+<hr />
+<p>原作：街角魔族（伊藤いづも）</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../dsa_pmode/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 偏执模式" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              偏执模式
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../momo_character/" class="md-footer__link md-footer__link--next" aria-label="下一页: 人物" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              人物
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      
+    
+  </body>
+</html>
