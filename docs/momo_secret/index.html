@@ -1214,6 +1214,7 @@ function momoclick(){
     var p = document.getElementById("momopassword");
     if (p.value != ""){
         window.open("/zh/momo_secret_" + p.value + "/");
+    console.log("Check momo password:", momocheck(p.value));
     }
 }
 </script>
