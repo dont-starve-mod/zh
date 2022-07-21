@@ -1200,6 +1200,10 @@
 <input type="text" name="pass" id="momopassword" onkeydown="momokeydown()">
 <button onclick="momoclick()"> 解锁</button></p>
 <script>
+if (localStorage.getItem("password")){
+  document.getElementById("momopassword").value = localStorage.getItem("password");
+}
+
 function momocheck(s){
     // 当你打开网页检查器的时候, 网页检查器就被你打开了
     return hex_md5("psw" + s.split("").reverse().join("") + "momo") == "7453745392c62ff31e4a6115cad5bf61";
@@ -1214,6 +1218,7 @@ function momoclick(){
     var p = document.getElementById("momopassword");
     if (p.value != ""){
         window.open("/zh/momo_secret_" + p.value + "/");
+    localStorage.setItem("password", p.value);
     console.log("Check momo password:", momocheck(p.value));
     }
 }
