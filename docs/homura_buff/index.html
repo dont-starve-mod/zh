@@ -114,6 +114,9 @@
       "luckwater": {
         "default": "light-blue"
       },
+      "sakana": {
+        "default": "blue"
+      },
       "home": {
         "default": "green",
       },
@@ -445,8 +448,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="../ohtoai_character/" class="md-tabs__link">
-        大户爱
+      <a href="../sakana_index/" class="md-tabs__link">
+        Sakana
       </a>
     </li>
   
@@ -1139,14 +1142,14 @@
       
       
         <label class="md-nav__link" for="__nav_7">
-          大户爱
+          Sakana
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="大户爱" data-md-level="1">
+      <nav class="md-nav" aria-label="Sakana" data-md-level="1">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
-          大户爱
+          Sakana
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1156,8 +1159,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../ohtoai_character/" class="md-nav__link">
-        人物
+      <a href="../sakana_index/" class="md-nav__link">
+        简介
       </a>
     </li>
   
@@ -1505,9 +1508,11 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li><strong>注意: 当子弹穿过物理碰撞体积较大的目标，将进行多次伤害判定</strong>。如巨鹿的碰撞半径为1.5（取整至2），若安装1个电磁加速线圈，子弹穿透数为2，命中巨鹿会造成2次伤害，并耗尽2层穿透数，子弹消失。</li>
-</ul>
+<div class="admonition note">
+<p class="admonition-title">碰撞体积判定</p>
+<p><strong>当子弹穿过物理碰撞体积较大的目标，将进行多次伤害判定</strong>。</p>
+<p>例如，熊獾的碰撞半径为<strong>1.5</strong>（取整至2），若安装1个电磁加速线圈，子弹穿透数为2，命中会造成2次伤害，并耗尽2层穿透数，子弹消失；而巨鹿的碰撞半径只有<strong>0.5</strong>（取整至1），命中只造成1次伤害，子弹会穿过巨鹿继续飞行，直到下一个可攻击的目标。</p>
+</div>
 <h3 id="lv2"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a330d.png" />制冷装置<a class="headerlink" href="#lv2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_ice&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -1647,7 +1652,7 @@
 </code></pre></div>
 <ul>
 <li>配方：活木×2，噩梦燃料×40。</li>
-<li>效果：武器最大载弹量×10。</li>
+<li>效果：武器最大载弹量×5。</li>
 <li><strong>卸下</strong>该配件时，溢出的子弹会置入物品栏。</li>
 </ul>
 <h3 id="_12"><img alt="" src="https://pic.imgdb.cn/item/60e1bf8c5132923bf86c5e03.png" />沙漏<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
@@ -1662,10 +1667,10 @@
 <div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_wormhole&quot;</span><span class="p">)</span>
 </code></pre></div>
 <ul>
-<li>迷你版的虫洞，只能传送小物品，比如子弹。</li>
+<li>迷你版的虫洞，只能传送一些小物件。</li>
 <li>配方：怪物肉x4，紫宝石x3，狗牙x5。</li>
 <li>效果：在开枪射击时优先消耗物品栏内的子弹，省去填弹的烦恼，一次射到爽。</li>
-<li>对火箭发射器无效。</li>
+<li>对火箭发射器无效（因为火箭炮太大了）。</li>
 </ul>
 <h3 id="_13"><img alt="" src="https://pic.imgdb.cn/item/60e1bf455132923bf86a333d.png" />棱镜<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">c_give</span><span class="p">(</span><span class="s2">&quot;homura_weapon_buff_laser&quot;</span><span class="p">)</span>
